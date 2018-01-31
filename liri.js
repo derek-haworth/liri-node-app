@@ -1,8 +1,8 @@
 require("dotenv").config();
 
 //set up liri object
-var liri {
-	fs: require("fs");
+var liri = {
+	fs: require("fs"),
 
 	logic: function(userRequest) {
 		switch(userRequest) {
