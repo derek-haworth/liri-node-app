@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/derek-haworth/liri-node-app/issues"
   },
-  "homepage": "https://github.com/derek-haworth/liri-node-app#readme"
+  "homepage": "https://github.com/derek-haworth/liri-node-app#readme",
+  "dependencies": {
+    "dotenv": "^5.0.0",
+    "node-spotify-api": "^1.0.7"
+  }
 }
