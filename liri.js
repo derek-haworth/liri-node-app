@@ -10,7 +10,8 @@ var liri = {
 
 	fs: require("fs"),
 
-	logic: function(userRequest) {
+	init: function(userRequest) {
+
 		switch(userRequest) {
     		case "my-tweets":
     		    console.log("chirp chirp");
@@ -24,10 +25,12 @@ var liri = {
 
     		case "movie-this":
     			console.log("movie that");
+                this.movieThis(this.title);
     		    break;
 
     		case "do-what-it-says":
-    			console.log("did it");                
+    			console.log("did it"); 
+                this.doSay();              
     		    break;
 
     		default:
@@ -67,7 +70,7 @@ var liri = {
                 };
             }
 
-            console.log(tweetObj);
+            console.log(JSON.stringify(tweetObj, null, 2));
 
         });
 
@@ -75,7 +78,7 @@ var liri = {
 
     spotifySong: function(songTitle) {
 
-        //if no song provided, default to Ace Of Base - The Sign
+        //if no song provided, default to 'Ace Of Base - The Sign'
         if (songTitle === "") {
             songTitle = "Ace of Base - The Sign";
         }
@@ -104,13 +107,16 @@ var liri = {
     },
 
     movieThis: function() {
-
+        console.log("movie function is working");
     },
 
     doSay: function() {
+        console.log("doSay function is working");
 
     }
 
 };
 
-liri.logic(process.argv[2]);
+
+// Run the init method in liri object
+liri.init(process.argv[2]);
