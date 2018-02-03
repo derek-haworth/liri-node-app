@@ -10,35 +10,6 @@ var liri = {
 
 	fs: require("fs"),
 
-	init: function(userRequest) {
-
-		switch(userRequest) {
-    		case "my-tweets":
-    		    console.log("chirp chirp");
-                this.twitter();
-    		    break;
-
-    		case "spotify-this-song":
-				console.log("spotifying");
-                this.spotifySong(this.title);
-    		    break;
-
-    		case "movie-this":
-    			console.log("movie that");
-                this.movieThis(this.title);
-    		    break;
-
-    		case "do-what-it-says":
-    			console.log("did it"); 
-                this.doSay();              
-    		    break;
-
-    		default:
-                console.log("Try one of these arguments instead: 'my-tweets', 'spotify-this-song', 'movie-this', 'do-what-it-says'");
-		}
-
-	},
-
     twitter: function() {
         var twitter = require("twitter");
 
@@ -72,6 +43,8 @@ var liri = {
 
             console.log(JSON.stringify(tweetObj, null, 2));
 
+            this.logOutput(tweetObj);
+
         });
 
     }, 
@@ -86,10 +59,10 @@ var liri = {
         var spotify = require("node-spotify-api");
         var spotifyClient = new spotify(keys.spotify);
 
-        spotifyClient.search({type: 'track', query: songTitle }, function(err,data) {
+        spotifyClient.search({type: 'track', query: songTitle }, function(error,data) {
 
-            if (err) {
-                console.log("Error: " + err);
+            if (error) {
+                console.log("Error: " + error);
                 return;
             } 
 
@@ -103,6 +76,8 @@ var liri = {
             };
     
             console.log(JSON.stringify(trackObj, null, 2));
+
+            this.logOutput(trackObj);
         });
     },
 
@@ -113,8 +88,48 @@ var liri = {
     doSay: function() {
         console.log("doSay function is working");
 
-    }
+    },
+    
+    // Method to log details to random.txt
+    logOutput: function(obj) {
 
+        this.fs.appendFile("log.txt", "\n" + JSON.stringify(obj), function(error) {
+
+            if (error) {
+                console.log("Error: " + error);
+                return;
+            }
+        });
+
+    },
+
+    init: function(userRequest) {
+
+        switch(userRequest) {
+            case "my-tweets":
+                console.log("chirp chirp");
+                this.twitter();
+                break;
+
+            case "spotify-this-song":
+                console.log("spotifying");
+                this.spotifySong(this.title);
+                break;
+
+            case "movie-this":
+                console.log("movie that");
+                this.movieThis(this.title);
+                break;
+
+            case "do-what-it-says":
+                console.log("did it"); 
+                this.doSay();              
+                break;
+
+            default:
+                console.log("Try one of these arguments instead: 'my-tweets', 'spotify-this-song', 'movie-this', 'do-what-it-says'");
+        }
+    }
 };
 
 
