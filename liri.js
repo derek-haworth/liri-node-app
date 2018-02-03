@@ -22,7 +22,7 @@ var liri = {
         twitterClient.get('statuses/user_timeline', params, function(error, tweets, response) {
 
             // console.log(tweets);
-            // console.log(response);
+            console.log(response);
 
             if (error) {
                 console.log("Error: " + error);
@@ -86,6 +86,7 @@ var liri = {
     movieThis: function(movieTitle) {
         console.log("movie function is working");
 
+        //if no movie provided, default to 'Mr Nobody'
         if (movieTitle === "") {
             movieTitle = "mr+nobody";
         } 
@@ -136,11 +137,19 @@ var liri = {
 
     },
 
+    // loop through the object built in argument method and console log it
     consoleDotLog: function(inputObj) {
         console.log("\n===============\n");
         for (var key in inputObj) {
             console.log(key + ": " + inputObj[key]);
         }
+    },
+
+    acceptMultipleArgs: function(charCapture) {
+
+        var nodeArgs = process.argv;
+        // Capture all the words in the empty var = title, ignoring the first two Node arguments)
+        this.title = nodeArgs.slice(3).join(charCapture);
 
     }, 
 
@@ -149,22 +158,34 @@ var liri = {
         switch(userRequest) {
             case "my-tweets":
                 console.log("chirp chirp");
+
                 this.twitter();
+
                 break;
 
             case "spotify-this-song":
                 console.log("spotifying");
+
+                var titleSpace = " ";
+                this.acceptMultipleArgs(titleSpace);
                 this.spotifySong(this.title);
+
                 break;
 
             case "movie-this":
                 console.log("movie that");
+
+                var titlePlus = "+";
+                this.acceptMultipleArgs(titlePlus);
                 this.movieThis(this.title);
+
                 break;
 
             case "do-what-it-says":
                 console.log("did it"); 
-                this.doSay();              
+
+                this.doSay();
+
                 break;
 
             default:
