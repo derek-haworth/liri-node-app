@@ -41,8 +41,9 @@ var liri = {
                 };
             }
 
-            console.log(JSON.stringify(tweetObj, null, 2));
+            // console.log(JSON.stringify(tweetObj, null, 2));
 
+            liri.consoleDotLog(tweetObj);
             liri.logOutput(tweetObj);
 
         });
@@ -75,8 +76,9 @@ var liri = {
                 "Album": data.tracks.items[0].album.name
             };
     
-            console.log(JSON.stringify(trackObj, null, 2));
+            // console.log(JSON.stringify(trackObj, null, 2));
 
+            liri.consoleDotLog(trackObj);
             liri.logOutput(trackObj);
         });
     },
@@ -109,6 +111,7 @@ var liri = {
                 } 
             }
 
+            liri.consoleDotLog(movieObj);
             liri.logOutput(movieObj);
 
         });
@@ -122,6 +125,7 @@ var liri = {
     // Method to log details to random.txt
     logOutput: function(obj) {
 
+        // TODO: add timestamp
         this.fs.appendFile("log.txt", "\n\n" + JSON.stringify(obj, null, 2), function(error) {
 
             if (error) {
@@ -131,6 +135,14 @@ var liri = {
         });
 
     },
+
+    consoleDotLog: function(inputObj) {
+        console.log("\n===============\n");
+        for (var key in inputObj) {
+            console.log(key + ": " + inputObj[key]);
+        }
+
+    }, 
 
     init: function(userRequest) {
 
