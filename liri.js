@@ -122,7 +122,7 @@ var liri = {
     // Method to log details to random.txt
     logOutput: function(obj) {
 
-        this.fs.appendFile("log.txt", "\n\n" + JSON.stringify(obj), function(error) {
+        this.fs.appendFile("log.txt", "\n\n" + JSON.stringify(obj, null, 2), function(error) {
 
             if (error) {
                 console.log("Error: " + error);
