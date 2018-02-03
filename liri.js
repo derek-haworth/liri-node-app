@@ -43,7 +43,7 @@ var liri = {
 
             console.log(JSON.stringify(tweetObj, null, 2));
 
-            this.logOutput(tweetObj);
+            liri.logOutput(tweetObj);
 
         });
 
@@ -77,23 +77,52 @@ var liri = {
     
             console.log(JSON.stringify(trackObj, null, 2));
 
-            this.logOutput(trackObj);
+            liri.logOutput(trackObj);
         });
     },
 
-    movieThis: function() {
+    movieThis: function(movieTitle) {
         console.log("movie function is working");
+
+        if (movieTitle === "") {
+            movieTitle = "mr+nobody";
+        } 
+
+        var request = require("request");
+        var queryUrl = 'http://www.omdbapi.com/?t=' + movieTitle +'&y=&plot=short&apikey=trilogy';
+
+        request(queryUrl, function(error, response, body) { 
+
+            if (!error && response.statusCode === 200) {
+                body = JSON.parse(body);
+
+                var movieObj = {
+                    Title: body.Title,
+                    Year: body.Year,
+                    "IMDB Raging": body.imdbRating,
+                    Country: body.Country,
+                    Language: body.Language,
+                    Plot: body.Plot,
+                    Actors: body.Actors,
+                    "Rotten Tomato Rating": body.tomatoRating,
+                    "Rotten Tomato URL": body.tomatoURL 
+                } 
+            }
+
+            liri.logOutput(movieObj);
+
+        });
     },
 
     doSay: function() {
         console.log("doSay function is working");
 
     },
-    
+
     // Method to log details to random.txt
     logOutput: function(obj) {
 
-        this.fs.appendFile("log.txt", "\n" + JSON.stringify(obj), function(error) {
+        this.fs.appendFile("log.txt", "\n\n" + JSON.stringify(obj), function(error) {
 
             if (error) {
                 console.log("Error: " + error);
