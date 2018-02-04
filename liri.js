@@ -117,6 +117,8 @@ var liri = {
         });
     },
 
+    // TODO: Think of better way to accept random.txt input
+    // for example if the cmd was movie-this instead of spotify-this-song
     doSay: function() {
         console.log("doSay function is working");
 
@@ -127,17 +129,11 @@ var liri = {
                 return;
             }
 
-            debugger;
             var end = data.indexOf(",");
             var cmd = data.slice(0, end);
             var start = end + 2;
 
-            console.log(end);
-            console.log(cmd);
-            console.log(start);
-
             liri.title = data.slice(start, -1);
-            console.log(liri.title);
             // pass value into init method
             liri.init(cmd, liri.title);
         });
@@ -181,7 +177,7 @@ var liri = {
 
     }, 
 
-    init: function(userRequest) {
+    init: function(userRequest, doSay) {
 
         switch(userRequest) {
             case "my-tweets":
@@ -194,8 +190,12 @@ var liri = {
             case "spotify-this-song":
                 console.log("spotifying");
 
-                var titleSpace = " ";
-                this.acceptMultipleArgs(titleSpace);
+                // if there is no second argument, which comes from doSay function
+                // not ideal if there was a different cmd in the random.txt but works for this purpose
+                if (doSay === undefined) {
+                    var titleSpace = " ";
+                    this.acceptMultipleArgs(titleSpace);
+                }
                 this.spotifySong(this.title);
 
                 break;
