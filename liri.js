@@ -1,3 +1,4 @@
+// required for api keys
 require("dotenv").config();
 var keys = require("./keys.js");
 
@@ -8,12 +9,14 @@ var liri = {
     // Empty string for songs and movies
     title: "",
 
+    // require file systems for writing and appending methods
 	fs: require("fs"),
 
     twitter: function() {
         var twitter = require("twitter");
 
         var twitterClient = new twitter(keys.twitter);
+        // set up a params object to pass in get method
         var params = {
             screen_name: 'derekhaw1',
             count: 20
@@ -26,8 +29,10 @@ var liri = {
                 return;
             }
 
+            // loop through tweets and build into their own objects
             var tweetLength = tweets.length;
             for (var i = 0; i < tweetLength; i++) {
+                // only show last 20 tweets
                 if ( i <= 20 ) {
                     var tweetNum = i + 1;
 
@@ -63,6 +68,7 @@ var liri = {
                 return;
             } 
 
+            // build the song object
             var trackObj = {
                 Artist: data.tracks.items[0].artists[0].name,
                 "Song Name": data.tracks.items[0].name,
@@ -91,6 +97,7 @@ var liri = {
             if (!error && response.statusCode === 200) {
                 body = JSON.parse(body);
 
+                // build the movie object
                 var movieObj = {
                     Title: body.Title,
                     Year: body.Year,
@@ -140,13 +147,14 @@ var liri = {
     // Method to log details to random.txt
     logOutput: function(obj) {
 
+        // Create a date timestamp
         var currentDate = new Date();
-
         var date = currentDate.getDate();
         var month = currentDate.getMonth(); 
         var year = currentDate.getFullYear();
         var dateString = (month + 1) + "-" +date + "-" + year;
 
+        // append object to the log everytime a command is run
         this.fs.appendFile("log.txt", "\n\n" + dateString + "\n" + JSON.stringify(obj, null, 2), function(error) {
 
             if (error) {
@@ -157,7 +165,7 @@ var liri = {
 
     },
 
-    // loop through the object built in argument method and console log it
+    // loop through the object built in the arguments methods and console log it
     consoleDotLog: function(inputObj) {
         console.log("\n===============\n");
         for (var key in inputObj) {
@@ -214,6 +222,5 @@ var liri = {
     }
 };
 
-
-// Run the init method in liri object
+// Run the init method in liri object.
 liri.init(process.argv[2]);
