@@ -25,8 +25,8 @@
 * `spotify-this-song` and `movie-this` take arguments that can be typed after their appropriate command.
 
 For example: 
-* `node liri.js spotify-this-song Californication`
+* `node liri.js spotify-this-song Californication`<br>
 ![Spotify](images/node_spotify.png)
-* `node liri.js movie-this Jurassic Park`
+* `node liri.js movie-this Jurassic Park`<br>
 ![OMDB](images/node_movie.png)
 
