@@ -24,6 +24,15 @@
 
 * `spotify-this-song` and `movie-this` take arguments that can be typed after their appropriate command.
 
+
+| Liri Commands        | Retrieved data           | API  |
+| ------------- |:-------------:| -----:|
+| my-tweets      | retrieves last 20 tweets of the user | Twitter |
+| spotify-this-song      | song details      |   Spotify |
+| movie-this | movie info      |   Request/OMDB |
+| do-what-it-says | random inputs      |    local |
+
+
 For example: 
 * `node liri.js spotify-this-song Californication`<br>
 ![Spotify](images/node_spotify.png)
