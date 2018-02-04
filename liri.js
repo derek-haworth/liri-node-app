@@ -21,16 +21,12 @@ var liri = {
 
         twitterClient.get('statuses/user_timeline', params, function(error, tweets, response) {
 
-            // console.log(tweets);
-            console.log(response);
-
             if (error) {
                 console.log("Error: " + error);
                 return;
             }
 
             var tweetLength = tweets.length;
-
             for (var i = 0; i < tweetLength; i++) {
                 var tweetNum = i + 1;
 
@@ -40,8 +36,6 @@ var liri = {
                     tweet: tweets[i].text
                 };
             }
-
-            // console.log(JSON.stringify(tweetObj, null, 2));
 
             liri.consoleDotLog(tweetObj);
             liri.logOutput(tweetObj);
@@ -67,8 +61,6 @@ var liri = {
                 return;
             } 
 
-            // console.log(JSON.stringify(data, null, 2));
-
             var trackObj = {
                 Artist: data.tracks.items[0].artists[0].name,
                 "Song Name": data.tracks.items[0].name,
@@ -76,8 +68,6 @@ var liri = {
                 "Album": data.tracks.items[0].album.name
             };
     
-            // console.log(JSON.stringify(trackObj, null, 2));
-
             liri.consoleDotLog(trackObj);
             liri.logOutput(trackObj);
         });
@@ -120,6 +110,27 @@ var liri = {
 
     doSay: function() {
         console.log("doSay function is working");
+
+        this.fs.readFile("random.txt", "utf8", function(error, data) {
+            
+            if (error) {
+                console.log("Error: " + error);
+                return;
+            }
+
+            var end = data.indexOf(",");
+            var cmd = data.slice(0, end);
+            var start = end + 1;
+
+            console.log(end);
+            console.log(cmd);
+            console.log(start);
+
+            liri.title = data.slice(start, -1);
+            console.log(liri.title);
+            // pass value into init method
+            liri.init(cmd, liri.title);
+        });
 
     },
 
