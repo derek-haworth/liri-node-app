@@ -21,8 +21,10 @@
 
 For example: 
 * `node liri.js spotify-this-song Californication`
+<br>
 ![Spotify](images/node_spotify.png)
-
+<br>
 * `node liri.js movie-this Jurassic Park`
+<br>
 ![OMDB](images/node_movie.png)
 
