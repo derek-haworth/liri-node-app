@@ -29,4 +29,6 @@ For example:
 ![Spotify](images/node_spotify.png)
 * `node liri.js movie-this Jurassic Park`<br>
 ![OMDB](images/node_movie.png)
+* `node liri.js my-tweets`<br>
+![Twitter](images/node_twitter.png)
 

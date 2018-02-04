@@ -28,18 +28,20 @@ var liri = {
 
             var tweetLength = tweets.length;
             for (var i = 0; i < tweetLength; i++) {
-                var tweetNum = i + 1;
+                if ( i <= 20 ) {
+                    var tweetNum = i + 1;
 
-                var tweetObj = {
-                    "number": tweetNum,
-                    "created": tweets[i].created_at,
-                    tweet: tweets[i].text
-                };
+                    var tweetObj = {
+                        "number": tweetNum,
+                        "created": tweets[i].created_at,
+                        tweet: "\"" + tweets[i].text + "\""
+                    };
+
+                    liri.consoleDotLog(tweetObj);
+
+                    liri.logOutput(tweetObj);
+                }
             }
-
-            liri.consoleDotLog(tweetObj);
-            liri.logOutput(tweetObj);
-
         });
 
     }, 
@@ -118,9 +120,10 @@ var liri = {
                 return;
             }
 
+            debugger;
             var end = data.indexOf(",");
             var cmd = data.slice(0, end);
-            var start = end + 1;
+            var start = end + 2;
 
             console.log(end);
             console.log(cmd);
@@ -144,8 +147,6 @@ var liri = {
         var year = currentDate.getFullYear();
         var dateString = (month + 1) + "-" +date + "-" + year;
 
-
-        // TODO: add timestamp
         this.fs.appendFile("log.txt", "\n\n" + dateString + "\n" + JSON.stringify(obj, null, 2), function(error) {
 
             if (error) {
