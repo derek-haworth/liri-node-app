@@ -137,8 +137,16 @@ var liri = {
     // Method to log details to random.txt
     logOutput: function(obj) {
 
+        var currentDate = new Date();
+
+        var date = currentDate.getDate();
+        var month = currentDate.getMonth(); 
+        var year = currentDate.getFullYear();
+        var dateString = (month + 1) + "-" +date + "-" + year;
+
+
         // TODO: add timestamp
-        this.fs.appendFile("log.txt", "\n\n" + JSON.stringify(obj, null, 2), function(error) {
+        this.fs.appendFile("log.txt", "\n\n" + dateString + "\n" + JSON.stringify(obj, null, 2), function(error) {
 
             if (error) {
                 console.log("Error: " + error);
